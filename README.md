@@ -2,7 +2,7 @@
 
 ### Have you ever forgotten your chores? With this app, that won't happen again.
 
-✅ Webapp link: https://x-chore-2f76b.web.app/
+Webapp link: https://x-chore-2f76b.web.app/
 
 ✅ Made with:
 - Angular [17.1.3]
