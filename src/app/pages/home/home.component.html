@@ -1,0 +1,205 @@
+<section class="todoapp">
+  <header class="header">
+    <div>
+      <h1>X-Chore</h1>
+      <p>
+        Have you ever forgotten your chores? With this app, that won't happen
+        again.
+      </p>
+
+      <div class="new-chore">
+        <input
+          class="new-chore__input"
+          placeholder="Type new chore"
+          autofocus
+          type="text"
+          [formControl]="newTaskCtrl"
+          (keydown.enter)="createTask()"
+        />
+
+        <div class="new-chore__icon" (click)="createTask()">
+          <svg
+            width="28px"
+            height="28px"
+            fill="#008000"
+            version="1.1"
+            id="Layer_1"
+            viewBox="0 0 24 24"
+            xml:space="preserve"
+          >
+            <path
+              d="M19.3,5.3L9,15.6l-4.3-4.3l-1.4,1.4l5,5L9,18.4l0.7-0.7l11-11L19.3,5.3z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main todoapp-wrapper">
+    <article class="top-toolbar">
+      <span class="todo-count">
+        <strong>{{ tasksByFilter().length }}</strong>
+        @if (tasksByFilter().length === 1) { item} @else { items}
+      </span>
+
+      <ul class="filters">
+        <li>
+          <a (click)="setFilter('all')" [class.selected]="filter() === 'all'">
+            All
+          </a>
+        </li>
+
+        <li>
+          <a
+            (click)="setFilter('pending')"
+            [class.selected]="filter() === 'pending'"
+          >
+            Pending
+          </a>
+        </li>
+
+        <li>
+          <a
+            (click)="setFilter('completed')"
+            [class.selected]="filter() === 'completed'"
+          >
+            Completed
+          </a>
+        </li>
+      </ul>
+
+      <button class="clear-completed" (click)="clearCompletedTasks()">
+        Clear completed
+      </button>
+    </article>
+
+    <article class="tasks">
+      <ul class="todo-list">
+        @for (task of tasksByFilter(); track task.id) {
+        <li
+          [class.completed]="task.completed"
+          [class.editing]="task.editing"
+          (dblclick)="updateTaskEditingMode(task.id)"
+        >
+          <div class="view">
+            <div class="toggle">
+              <svg
+                class="toggle__icon"
+                fill="#303030"
+                width="32px"
+                height="32px"
+                viewBox="0 0 14 14"
+                role="img"
+                focusable="false"
+                aria-hidden="true"
+              >
+                @if (task.completed) {
+                <path
+                  fill="green"
+                  d="M4.2666667 5.73333l-.9333334.93334 3 3L13 3l-.933333-.93333L6.3333333 7.8 4.2666667 5.73333z"
+                />
+                <path
+                  d="M11.666667 11.66667H2.3333333V2.33333H9V1H2.3333333C1.6 1 1 1.6 1 2.33333v9.33334C1 12.4 1.6 13 2.3333333 13h9.3333337C12.4 13 13 12.4 13 11.66667V6.33333h-1.333333v5.33334z"
+                />
+                } @else {
+                <path
+                  d="M11.666667 2.33333v9.33334H2.3333333V2.33333h9.3333337m0-1.33333H2.3333333C1.6 1 1 1.6 1 2.33333v9.33334C1 12.4 1.6 13 2.3333333 13h9.3333337C12.4 13 13 12.4 13 11.66667V2.33333C13 1.6 12.4 1 11.666667 1z"
+                />
+                }
+              </svg>
+
+              <input
+                class="toggle__input"
+                type="checkbox"
+                [checked]="task.completed"
+                (change)="updateTaskCompletion(task.id)"
+              />
+            </div>
+
+            <label>{{ task.title }}</label>
+
+            <svg
+              class="view__edit-icon"
+              width="30px"
+              height="30px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              (click)="updateTaskEditingMode(task.id)"
+            >
+              <path
+                d="M18 10L21 7L17 3L14 6M18 10L8 20H4V16L14 6M18 10L14 6"
+                stroke="#303030"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+
+            <div class="remove-icon">
+              <svg
+                width="28px"
+                height="28px"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                (click)="deleteTask(task.id)"
+              >
+                <path
+                  d="M7 17L16.8995 7.10051"
+                  stroke="#303030"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M7 7.00001L16.8995 16.8995"
+                  stroke="#303030"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="edit">
+            <input
+              class="edit__input"
+              [value]="task.title"
+              [formControl]="editTaskCtrl"
+              (keydown.enter)="updateTaskTitle(task.id)"
+            />
+
+            <div class="edit__icon" (click)="updateTaskTitle(task.id)">
+              <svg
+                width="28px"
+                height="28px"
+                fill="#008000"
+                version="1.1"
+                id="Layer_1"
+                viewBox="0 0 24 24"
+                xml:space="preserve"
+              >
+                <path
+                  d="M19.3,5.3L9,15.6l-4.3-4.3l-1.4,1.4l5,5L9,18.4l0.7-0.7l11-11L19.3,5.3z"
+                />
+              </svg>
+            </div>
+          </div>
+        </li>
+        }
+      </ul>
+    </article>
+
+    <article class="bottom-toolbar">
+      <span class="todo-count">
+        <strong>{{ tasksByFilter().length }}</strong>
+        @if (tasksByFilter().length === 1) { item} @else { items}
+      </span>
+
+      <button class="clear-completed" (click)="clearCompletedTasks()">
+        Clear completed
+      </button>
+    </article>
+  </main>
+</section>
