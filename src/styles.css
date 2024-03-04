@@ -32,6 +32,11 @@ button {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a {
+  display: inline-block;
+  text-decoration: none;
+}
+
 :focus {
   outline: 0;
 }

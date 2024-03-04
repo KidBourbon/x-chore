@@ -46,14 +46,13 @@
   color: rgba(0, 0, 0, 0.4);
 }
 
-.header h1 {
-  width: 100%;
+.title {
   font-size: 48rem;
   font-weight: 200;
   color: white;
 }
 
-.header h1 + p {
+.info {
   color: white;
 }
 
