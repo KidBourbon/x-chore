@@ -12,7 +12,7 @@
 
 ✅ Made under the Mobile First design approach.
 
-✅ The website is also fully responsive to large screen devices such as tablets and desktop PCs.
+✅ The website is also fully responsive to large screen devices, such as tablets and desktop PCs.
 
 ✅ Deployment with Firebase Hosting. 
 
