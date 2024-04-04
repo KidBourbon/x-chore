@@ -10,8 +10,10 @@ Webapp link: https://x-chore-2f76b.web.app/
 - Node [20.11.0 LTS]
 - NPM [10.2.4]
 
-✅ Deployment with Firebase Hosting. 
+✅ Made under the Mobile First design approach.
 
-✅ The website is fully responsive to large screen devices such as tablets and desktop PCs.
+✅ The website is also fully responsive to large screen devices such as tablets and desktop PCs.
+
+✅ Deployment with Firebase Hosting. 
 
 ✅ Project as part of the course "Nuevo Curso de Angular 17: Creación de Aplicaciones Web" of the company Platzi.
